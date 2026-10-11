@@ -6,6 +6,8 @@
 	<string>Counter Trade</string>
 	<key>CFBundleExecutable</key>
 	<string>Counter Trade</string>
+	<key>CFBundleIconFile</key>
+	<string>AppIcon</string>
 	<key>CFBundleIdentifier</key>
 	<string>com.roman.winrate</string>
 	<key>CFBundleName</key>
