@@ -72,7 +72,12 @@ final class Store {
 
     init() {
         let base = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0]
-        folder = base.appendingPathComponent("Winrate", isDirectory: true)
+        folder = base.appendingPathComponent("Counter Trade", isDirectory: true)
+        // Приложение раньше называлось Winrate: переносим его данные один раз, старую папку не трогаем.
+        let old = base.appendingPathComponent("Winrate", isDirectory: true)
+        if !FileManager.default.fileExists(atPath: folder.path), FileManager.default.fileExists(atPath: old.path) {
+            try? FileManager.default.copyItem(at: old, to: folder)
+        }
         try? FileManager.default.createDirectory(at: folder, withIntermediateDirectories: true)
         migrateFromDefaultsIfNeeded()
         load()

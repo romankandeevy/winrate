@@ -25,7 +25,9 @@
 
 ## Где хранятся данные
 
-`~/Library/Application Support/Winrate/`
+`~/Library/Application Support/Counter Trade/`
+
+(Раньше папка называлась `Winrate`; при первом запуске данные копируются оттуда сами.)
 
 - `sessions.jsonl` — архив, по сессии на строку. Дописывается, сам ничего не стирает.
 - `current.json` — текущая сессия.
