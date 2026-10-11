@@ -23,8 +23,32 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         keyMonitor = NSEvent.addLocalMonitorForEvents(matching: .keyDown) { [weak self] event in
             self?.handle(event) == true ? nil : event
         }
+        makeMainMenu()
         show()
     }
+
+    /// Закрытие окна только прячет его; приложение живёт, пока его не выйдут (⌘Q, Dock, меню).
+    func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool { false }
+
+    /// Клик по иконке в Dock возвращает окно.
+    func applicationShouldHandleReopen(_ sender: NSApplication, hasVisibleWindows flag: Bool) -> Bool {
+        show()
+        return true
+    }
+
+    private func makeMainMenu() {
+        let main = NSMenu()
+        let appItem = NSMenuItem()
+        main.addItem(appItem)
+        let appMenu = NSMenu()
+        appMenu.addItem(withTitle: "Показать окно", action: #selector(showAction), keyEquivalent: "").target = self
+        appMenu.addItem(.separator())
+        appMenu.addItem(withTitle: "Выйти из Counter Trade", action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q")
+        appItem.submenu = appMenu
+        NSApp.mainMenu = main
+    }
+
+    @objc private func showAction() { show() }
 
     // MARK: Окно
 
@@ -115,7 +139,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
     // MARK: Клавиши
 
-    /// ← победа, → поражение, ⌫ отмена, ⌘R сброс (двойной), Esc спрятать. Работает, когда окно активно.
+    /// ← победа, → поражение, ⌫ отмена, Esc спрятать. Работает, когда окно активно.
     private func handle(_ event: NSEvent) -> Bool {
         guard NSApp.keyWindow === panel else { return false }
         let cmd = event.modifierFlags.contains(.command)
@@ -134,7 +158,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     private func makeStatusItem() {
         statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
         if let button = statusItem.button {
-            button.image = NSImage(systemSymbolName: "plusminus.circle", accessibilityDescription: "Winrate")
+            button.image = NSImage(systemSymbolName: "plusminus.circle", accessibilityDescription: "Counter Trade")
             button.target = self
             button.action = #selector(statusClicked)
             button.sendAction(on: [.leftMouseUp, .rightMouseUp])

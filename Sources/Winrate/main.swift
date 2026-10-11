@@ -1,10 +1,10 @@
 import AppKit
 
-// Приложение без Dock-иконки: окно поверх экрана и значок в строке меню.
+// Обычное приложение: иконка в Dock, значок в строке меню, окно поверх экрана.
 MainActor.assumeIsolated {
     let app = NSApplication.shared
     let delegate = AppDelegate()
     app.delegate = delegate
-    app.setActivationPolicy(.accessory)
+    app.setActivationPolicy(.regular)
     app.run()
 }

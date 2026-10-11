@@ -3,13 +3,13 @@
 <plist version="1.0">
 <dict>
 	<key>CFBundleDisplayName</key>
-	<string>Winrate</string>
+	<string>Counter Trade</string>
 	<key>CFBundleExecutable</key>
-	<string>Winrate</string>
+	<string>Counter Trade</string>
 	<key>CFBundleIdentifier</key>
 	<string>com.roman.winrate</string>
 	<key>CFBundleName</key>
-	<string>Winrate</string>
+	<string>Counter Trade</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
@@ -18,8 +18,6 @@
 	<string>1</string>
 	<key>LSMinimumSystemVersion</key>
 	<string>14.0</string>
-	<key>LSUIElement</key>
-	<true/>
 	<key>NSHighResolutionCapable</key>
 	<true/>
 	<key>NSPrincipalClass</key>

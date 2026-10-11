@@ -113,6 +113,13 @@ final class Store {
         saveCurrent()
     }
 
+    /// Обнуляет текущий счёт без сохранения в архив.
+    func reset() {
+        guard !history.isEmpty else { return }
+        wins = 0; losses = 0; history = []; currentStart = nil
+        saveCurrent()
+    }
+
     /// Единственный способ потерять данные - явно удалить сессию из списка.
     func deleteSession(_ id: Session.ID) {
         sessions.removeAll { $0.id == id }

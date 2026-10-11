@@ -1,14 +1,14 @@
-# Winrate
+# Counter Trade
 
 Узкий счётчик побед и поражений для трейдинга. Окно лежит поверх всех программ и почти не мешает: смотришь на график, жмёшь ← или →, видишь винрейт.
 
 ## Установка
 
-1. Скачай **Winrate.dmg** на странице [Releases](../../releases/latest).
-2. Открой его и перетащи **Winrate** в папку **Программы**.
-3. Первый запуск: приложение не подписано сертификатом Apple, поэтому macOS предупредит. Нажми правой кнопкой по Winrate → **Открыть** → **Открыть**. Если и так не пускает, выполни в Терминале:
+1. Скачай **Counter-Trade.dmg** на странице [Releases](../../releases/latest).
+2. Открой его и перетащи **Counter Trade** в папку **Программы**.
+3. Первый запуск: приложение не подписано сертификатом Apple, поэтому macOS предупредит. Нажми правой кнопкой по Counter Trade → **Открыть** → **Открыть**. Если и так не пускает, выполни в Терминале:
    ```bash
-   xattr -dr com.apple.quarantine /Applications/Winrate.app
+   xattr -dr com.apple.quarantine "/Applications/Counter Trade.app"
    ```
 
 Нужен macOS 14 или новее.
@@ -37,8 +37,8 @@
 Нужны только Command Line Tools.
 
 ```bash
-./build.sh          # build/Winrate.app
+./build.sh          # build/Counter Trade.app
 ./build.sh run      # собрать и запустить
 ./build.sh install  # положить в ~/Applications
-./build.sh dmg      # build/Winrate.dmg
+./build.sh dmg      # build/Counter-Trade.dmg
 ```

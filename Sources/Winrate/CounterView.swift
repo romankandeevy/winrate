@@ -63,8 +63,10 @@ struct CounterView: View {
     }
 
     private var header: some View {
-        HStack(spacing: 8) {
-            Spacer()
+        HStack(spacing: 6) {
+            // Слева в углу лежит красная кнопка закрытия окна; история прижата к полоске винрейта.
+            Spacer(minLength: 0)
+            HeaderHistoryButton(active: store.showHistory) { store.toggleHistory() }
             ratioBar
             Text(store.rate.map { "\($0)%" } ?? "—")
                 .font(.system(size: 15, weight: .semibold))
@@ -93,7 +95,7 @@ struct CounterView: View {
                 Capsule().fill(rateColor(store.rate)).frame(width: g.size.width * share)
             }
         }
-        .frame(width: 44, height: 3)
+        .frame(width: 40, height: 3)
     }
 
     private var footer: some View {
@@ -107,9 +109,10 @@ struct CounterView: View {
                 withAnimation(.spring(duration: 0.45, bounce: 0.2)) { store.newSession() }
             }
             .help("Сохранить сессию в историю и начать счёт с нуля")
-            FooterButton(icon: "list.bullet", title: "История", enabled: true, active: store.showHistory) {
-                store.toggleHistory()
+            FooterButton(icon: "arrow.counterclockwise", title: "Сброс", enabled: store.total > 0, active: false) {
+                withAnimation(.spring(duration: 0.45, bounce: 0.2)) { store.reset() }
             }
+            .help("Обнулить счёт без сохранения")
         }
         .padding(6)
         .frame(height: 40)
@@ -192,6 +195,29 @@ private struct HalfButton: View {
             try? await Task.sleep(for: .seconds(0.3))
             withAnimation(.easeIn(duration: 0.4)) { badgeOpacity = 0 }
         }
+    }
+}
+
+private struct HeaderHistoryButton: View {
+    let active: Bool
+    let action: () -> Void
+    @State private var hovering = false
+
+    var body: some View {
+        Button(action: action) {
+            HStack(spacing: 5) {
+                Image(systemName: "list.bullet").font(.system(size: 11, weight: .medium))
+                Text("История").font(.system(size: 12, weight: .medium)).fixedSize()
+            }
+                .padding(.horizontal, 5)
+                .frame(height: 22)
+                .foregroundStyle(Color.white.opacity(hovering || active ? 1 : 0.78))
+                .background(RoundedRectangle(cornerRadius: 6).fill(Color.white.opacity(active ? 0.1 : hovering ? 0.07 : 0)))
+                .contentShape(Rectangle())
+        }
+        .buttonStyle(.plain)
+        .help("История")
+        .onHover { h in withAnimation(.easeOut(duration: 0.15)) { hovering = h } }
     }
 }
 
